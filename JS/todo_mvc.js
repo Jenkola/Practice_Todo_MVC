@@ -4,7 +4,11 @@
 
 	var app = {
 
-		model: {},
+		model: {
+
+			todos: []
+			
+		},
 
 
 
