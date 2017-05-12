@@ -37,10 +37,12 @@ Migrate display todos to HTML:
 		>>Remove console.log methods from displaytodos.
 
 V0.04
+Delete all completed function in model:
 	-DONE: It should have a function to delete all completed todos.
 		>>Loops through todos (from back to front?), if completed === true, call delete todo function on that index number.
 
 V0.05
+Controls in html:
 	-DONE: Create controls for model functions in index.html
 		>>addTodo: Text input, 'Add todo' button.
 		>>editTodoText: Number input for index, text input, 'Edit todo' button.
@@ -48,3 +50,22 @@ V0.05
 		>>toggleCompleted: Number input for index, 'Toggle Completed' button.
 		>>toggleAll: 'Toggle all' button.
 		>>removeCompleted: 'Remove all completed todos' button.
+
+V0.06
+Build control handler section in JS:
+	-DONE: It should have methods in control object which:
+		>>Are triggered by the user clicking control buttons in index.html
+		>>Call model methods, utilising the value of relevant text/number fields
+		as arguments to the methods.
+		>>Clear the value of the text/number fields.
+		>>Calls to render (displaytodos) should be moved from the model methods to the control methods.
+	-DONE: The buttons in index.html should have onclick properties to utilise the control methods.
+
+
+TODO:
+	-Add Delete todo and Toggle Completed buttons to each todo li item in HTML.
+	-Make these buttons work (each li element will need a unique id?).
+	-Remove those buttons from controls section once working.
+
+	-Make completed status a checkbox on each li item. Checkbox status to be bound to completed property of the todo in JS.
+	-Make edit todo workable for each list item i.e. Double click text to edit.

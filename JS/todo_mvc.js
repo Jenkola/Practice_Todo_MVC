@@ -3,7 +3,7 @@
 (function(root) {
 
 	var app = {
-
+		//Model with core methods for manipulating todos array.
 		model: {
 
 			todos: [],
@@ -14,27 +14,20 @@
 					todoText: todoText,
 					completed: false
 				});
-
-				todoApp.view.displayTodos();
 			},
 
 			editTodoText: function(index, updatedText) {
 
 				this.todos[index].todoText = updatedText;
-
-				todoApp.view.displayTodos();
 			},
 
 			deleteTodo: function(index) {
 
 				this.todos.splice(index, 1);
-
-				todoApp.view.displayTodos();
 			},
 
 			removeCompleted: function() {
-				//>>Loops through todos (from back to front?), 
-				//if completed === true, call delete todo function on that index number.
+				
 				for (var i = this.todos.length - 1; i >= 0; i--) {
 					if (this.todos[i].completed) {
 						this.deleteTodo(i);
@@ -45,8 +38,6 @@
 			toggleCompleted: function(index) {
 
 				this.todos[index].completed = !this.todos[index].completed;
-
-				todoApp.view.displayTodos();
 			},
 
 			toggleAll: function() {
@@ -71,35 +62,78 @@
 						todo.completed = true;				
 					});
 				}
-				todoApp.view.displayTodos();
-			}
-			
+			}	
 		},
 
+		control: {
+		//These methods are initiated using onclick properties in the HTML
 
+			addTodo: function() {
+				var addTodoTextInput = document.getElementById('addtodotextinput');
+				
+				app.model.addTodo(addTodoTextInput.value);
 
+				addTodoTextInput.value = '';
+				app.view.displayTodos();
+			},
 
+			editTodoText: function() {
+				var editTodoIndexNumber = document.getElementById('edittodoindexnumber'),
+					editTodoTextInput = document.getElementById('edittodotextinput');
 
-		control: {},
+				app.model.editTodoText(editTodoIndexNumber.value,
+					editTodoTextInput.value);
 
+				editTodoIndexNumber.value = '';
+				editTodoTextInput.value = '';
+				app.view.displayTodos();
+			},
+
+			deleteTodo: function() {
+				var deleteTodoIndexNumber = document.getElementById('deletetodoindexnumber');
+
+				app.model.deleteTodo(deleteTodoIndexNumber.value);
+
+				deleteTodoIndexNumber.value = '';
+				app.view.displayTodos();
+			},
+
+			removeCompleted: function() {
+
+				app.model.removeCompleted();
+				app.view.displayTodos();
+			},
+
+			toggleCompleted: function() {
+				var toggleCompletedIndexNumber = document.getElementById('togglecompletedindexnumber');
+
+				app.model.toggleCompleted(toggleCompletedIndexNumber.value);
+
+				toggleCompletedIndexNumber.value = '';
+				app.view.displayTodos();
+			},
+
+			toggleAll: function() {
+
+				app.model.toggleAll();
+				app.view.displayTodos();
+			}
+		},
+
+		//Methods for rendering todo list in index.html
 		view: {
 
 			displayTodos: function() {
-
 				var todolistULelement = document.getElementById('todolist');
 				todolistULelement.innerHTML = '';
 
-				todoApp.model.todos.forEach(function(todo) {
-					//displayTodos should create LI elements, put in same 
-					//text content as before, then append to the UL.
+				app.model.todos.forEach(function(todo) {
 					var todolistLIelement = document.createElement('LI');
 
 					if (todo.completed) {
-						todolistLIelement.textContent = '(x) ' + todo.todoText;
-						//console.log('(x) ' + todo.todoText);
+						todolistLIelement.textContent = '(x) ' + todo.todoText;	
 					} else {
-						todolistLIelement.textContent = '( ) ' + todo.todoText;
-						//console.log('( ) ' + todo.todoText);
+						todolistLIelement.textContent = '( ) ' + todo.todoText;					
 					}
 					todolistULelement.appendChild(todolistLIelement);
 				});

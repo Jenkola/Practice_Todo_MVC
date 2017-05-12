@@ -17,32 +17,32 @@
 			</ul>
 		</section>
 
-		<section>
+		<section id="todolistcontrols">
 			<div>
 				<input id="addtodotextinput" type="text">
-				<button id="addtodosubmitbutton">Add todo</button>
+				<button onclick="todoApp.control.addTodo()">Add todo</button>
 			</div>
 
 			<div>
 				<input id="edittodoindexnumber" type="number">
-				<button id="edittodosubmitbutton">Edit todo</button>
+				<input id="edittodotextinput" type="text">
+				<button onclick="todoApp.control.editTodoText()">Edit todo</button>
 			</div>			
 
 			<div>
 				<input id="deletetodoindexnumber" type="number">
-				<button id="deletetodosubmitbutton">Delete todo</button>
+				<button onclick="todoApp.control.deleteTodo()">Delete todo</button>
 			</div>			
 
 			<div>
-				<input id="togglecompleteindexnumber" type="number">
-				<button id="togglecompletesubmitbutton">Toggle complete</button>
+				<input id="togglecompletedindexnumber" type="number">
+				<button onclick="todoApp.control.toggleCompleted()">Toggle completed</button>
 			</div>
 
 			<div>
-				<button id="toggleallbutton">Toggle all</button>
-				<button id="removecompletedbutton">Remove completed todos</button>
-			</div>		
-
+				<button onclick="todoApp.control.toggleAll()">Toggle all</button>
+				<button onclick="todoApp.control.removeCompleted()">Remove completed todos</button>
+			</div>
 		</section>
 
 	</body>
