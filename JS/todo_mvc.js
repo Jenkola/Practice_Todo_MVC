@@ -32,6 +32,16 @@
 				todoApp.view.displayTodos();
 			},
 
+			removeCompleted: function() {
+				//>>Loops through todos (from back to front?), 
+				//if completed === true, call delete todo function on that index number.
+				for (var i = this.todos.length - 1; i >= 0; i--) {
+					if (this.todos[i].completed) {
+						this.deleteTodo(i);
+					}
+				}
+			},
+
 			toggleCompleted: function(index) {
 
 				this.todos[index].completed = !this.todos[index].completed;
