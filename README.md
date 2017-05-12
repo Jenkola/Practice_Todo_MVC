@@ -13,7 +13,16 @@ V0.01 Begin model creation:
     -displayTodos
     
 V0.02 
-  -Added toggleAll function to toggle all todos' completed property
+  -Added toggleAll function to toggle all todos' completed property.
   
 V0.03
   -Migrated the displayTodos function to display todos as list elements in the HTML rather than in the console.
+
+V0.04
+  -Added 'delete all completed' function to delete all todos with completed: true.
+  
+V0.05
+  -Added controls for the model in index.html
+  
+V0.06
+  -Added control methods in JS, linked to fields/buttons in index.html, which trigger model and view methods.
