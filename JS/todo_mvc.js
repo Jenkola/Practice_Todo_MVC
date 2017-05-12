@@ -76,13 +76,22 @@
 
 			displayTodos: function() {
 
-				todoApp.model.todos.forEach(function(todo) {
-					if (todo.completed) {
-						console.log('(x) ' + todo.todoText);
-					} else {
-						console.log('( ) ' + todo.todoText);
-					}
+				var todolistULelement = document.getElementById('todolist');
+				todolistULelement.innerHTML = '';
 
+				todoApp.model.todos.forEach(function(todo) {
+					//displayTodos should create LI elements, put in same 
+					//text content as before, then append to the UL.
+					var todolistLIelement = document.createElement('LI');
+
+					if (todo.completed) {
+						todolistLIelement.textContent = '(x) ' + todo.todoText;
+						//console.log('(x) ' + todo.todoText);
+					} else {
+						todolistLIelement.textContent = '( ) ' + todo.todoText;
+						//console.log('( ) ' + todo.todoText);
+					}
+					todolistULelement.appendChild(todolistLIelement);
 				});
 			}
 		}

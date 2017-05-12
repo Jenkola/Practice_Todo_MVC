@@ -29,3 +29,13 @@ Toggleall function in model:
 		>>Otherwise, make all todos' completed === true.
 		>>Call displayTodos function afterward.
 
+V0.03
+Migrate display todos to HTML:
+	-DONE: The display todos function should display the todos in index.html rather than in the console.
+		>>Set up UL in index.html
+		>>displayTodos should create LI elements, put in same text content as before, then append to the UL.
+		>>Remove console.log methods from displaytodos.
+
+V0.04
+	-It should have a function to delete all completed todos.
+		>>Loops through todos (from back to front?), if completed === true, call delete todo function on that index number.
