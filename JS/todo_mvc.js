@@ -4,7 +4,67 @@
 
 	var app = {
 
-		model: {},
+		model: {
+
+			todos: [],
+
+			addTodo: function(todoText) {
+
+				this.todos.push({
+					todoText: todoText,
+					completed: false
+				});
+
+				todoApp.view.displayTodos();
+			},
+
+			editTodoText: function(index, updatedText) {
+
+				this.todos[index].todoText = updatedText;
+
+				todoApp.view.displayTodos();
+			},
+
+			deleteTodo: function(index) {
+
+				this.todos.splice(index, 1);
+
+				todoApp.view.displayTodos();
+			},
+
+			toggleCompleted: function(index) {
+
+				this.todos[index].completed = !this.todos[index].completed;
+
+				todoApp.view.displayTodos();
+			},
+
+			toggleAll: function() {
+
+				//Find number of completed todos
+				var numberOfCompletedTodos = 0;
+
+				this.todos.forEach(function(todo) {
+					if(todo.completed) {
+						numberOfCompletedTodos++;
+					}
+				});
+
+				//If all todos are completed, make all completed === false.
+				if(numberOfCompletedTodos === this.todos.length) {
+					this.todos.forEach(function(todo) {
+						todo.completed = false;				
+					});
+				} else {
+				//Otherwise, make all todos' completed === true.
+					this.todos.forEach(function(todo) {
+						todo.completed = true;				
+					});
+				}
+				todoApp.view.displayTodos();
+			}
+			
+		},
 
 
 
@@ -12,7 +72,20 @@
 
 		control: {},
 
-		view: {}
+		view: {
+
+			displayTodos: function() {
+
+				todoApp.model.todos.forEach(function(todo) {
+					if (todo.completed) {
+						console.log('(x) ' + todo.todoText);
+					} else {
+						console.log('( ) ' + todo.todoText);
+					}
+
+				});
+			}
+		}
 
 	};
 

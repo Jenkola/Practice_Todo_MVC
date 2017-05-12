@@ -1,0 +1,31 @@
+**Requirements**
+
+V0.01
+Begin model creation:
+	-DONE: It should have a place to store todos i.e. a todos array.
+
+	-DONE: It should have a function to add todos.
+		>>Todos should be objects with 2 properties: todoText and completed.
+			>>Accepts as parameter: Text to be input to Todotext.
+			>>Completed is false by default.
+
+	-DONE: It should have a function to edit the todo text.
+		>>Accepts as parameters 1: Index number of todo to be updated. 2: Updated todo text string.
+
+	-DONE: It should have a function to delete a todo.
+		>>Accepts as parameter: Index number of todo to be deleted.
+
+	-DONE: It should have a function to toggle the completed status of a todo.
+		>>Accepts as parameter: Index number of todo to be toggled.
+
+	-DONE: It should have a function to display todos, for now via a console.log().
+		>>It should display a string of the completed status and the todo text.
+		>>The add todos, edit todo, delete todo function should also call the display todos function.
+
+V0.02
+Toggleall function in model:
+	It should have a method to toggle all todos' completed status.
+		>>If all todos have are completed === true, make all todos' completed === false.
+		>>Otherwise, make all todos' completed === true.
+		>>Call displayTodos function afterward.
+
