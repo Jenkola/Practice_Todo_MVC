@@ -37,5 +37,14 @@ Migrate display todos to HTML:
 		>>Remove console.log methods from displaytodos.
 
 V0.04
-	-It should have a function to delete all completed todos.
+	-DONE: It should have a function to delete all completed todos.
 		>>Loops through todos (from back to front?), if completed === true, call delete todo function on that index number.
+
+V0.05
+	-Create controls for model functions in index.html
+		>>addTodo: Text input, 'Add todo' button.
+		>>editTodoText: Number input for index, text input, 'Edit todo' button.
+		>>deleteTodo: Number input for index, 'Delete todo' button.
+		>>toggleCompleted: Number input for index, 'Toggle Completed' button.
+		>>toggleAll: 'Toggle all' button.
+		>>removeCompleted: 'Remove all completed todos' button.
