@@ -41,7 +41,7 @@ V0.04
 		>>Loops through todos (from back to front?), if completed === true, call delete todo function on that index number.
 
 V0.05
-	-Create controls for model functions in index.html
+	-DONE: Create controls for model functions in index.html
 		>>addTodo: Text input, 'Add todo' button.
 		>>editTodoText: Number input for index, text input, 'Edit todo' button.
 		>>deleteTodo: Number input for index, 'Delete todo' button.
