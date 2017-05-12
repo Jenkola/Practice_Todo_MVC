@@ -18,9 +18,14 @@ Begin model creation:
 	-DONE: It should have a function to toggle the completed status of a todo.
 		>>Accepts as parameter: Index number of todo to be toggled.
 
-	-It should have a function to display todos, for now via a console.log().
+	-DONE: It should have a function to display todos, for now via a console.log().
+		>>It should display a string of the completed status and the todo text.
 		>>The add todos, edit todo, delete todo function should also call the display todos function.
 
 V0.02
-Toggleall function...
+Toggleall function in model:
+	It should have a method to toggle all todos' completed status.
+		>>If all todos have are completed === true, make all todos' completed === false.
+		>>Otherwise, make all todos' completed === true.
+		>>Call displayTodos function afterward.
 

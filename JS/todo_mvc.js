@@ -37,6 +37,31 @@
 				this.todos[index].completed = !this.todos[index].completed;
 
 				todoApp.view.displayTodos();
+			},
+
+			toggleAll: function() {
+
+				//Find number of completed todos
+				var numberOfCompletedTodos = 0;
+
+				this.todos.forEach(function(todo) {
+					if(todo.completed) {
+						numberOfCompletedTodos++;
+					}
+				});
+
+				//If all todos are completed, make all completed === false.
+				if(numberOfCompletedTodos === this.todos.length) {
+					this.todos.forEach(function(todo) {
+						todo.completed = false;				
+					});
+				} else {
+				//Otherwise, make all todos' completed === true.
+					this.todos.forEach(function(todo) {
+						todo.completed = true;				
+					});
+				}
+				todoApp.view.displayTodos();
 			}
 			
 		},
@@ -51,16 +76,14 @@
 
 			displayTodos: function() {
 
-				var todos = todoApp.model.todos;
-
-				for(var i = 0; i < todos.length; i++) {
-
-					if (todos[i].completed) {
-						console.log('(x) ' + todos[i].todoText);	
+				todoApp.model.todos.forEach(function(todo) {
+					if (todo.completed) {
+						console.log('(x) ' + todo.todoText);
 					} else {
-						console.log('( ) ' + todos[i].todoText);
-					}				
-				}
+						console.log('( ) ' + todo.todoText);
+					}
+
+				});
 			}
 		}
 
