@@ -15,12 +15,8 @@
 			<ul id="todolist">
 				<!--Generated Todo <li> items go here-->
 
-				<!--Test li item with buttons to use as template later with handlebars.js
-				<li>
-					<p class="todoText"></p>				
-					<button class="togglecompletedbutton">Toggle completed</button>
-					<button class="deletetodobutton">Delete todo</button>
-				</li>-->
+				<!--Li item template for use with handlebars.js-->
+
 
 			</ul>
 		</section>
@@ -45,6 +41,15 @@
 
 	</body>
 
+
+	<script src="libs/handlebars-v4.0.5.js"></script>
+				<script id="todo-template" type="text/x-handlebars-template">
+					<li id="{{uid}}">
+						{{completed}} {{todotext}}				
+						<button class="togglecompletedbutton">Toggle completed</button>
+						<button class="deletetodobutton">Delete todo</button>
+					</li>
+				</script>	
 	<script src="js/todo_mvc.js"></script>
 
 </html>

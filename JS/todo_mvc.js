@@ -169,23 +169,22 @@
 				//Clear UL todolist section of HTML of all content
 				var todolistULelement = document.getElementById('todolist');
 				todolistULelement.innerHTML = '';
+				//Create LI template for Handlebars
+				var handlebarsTemplateSource = document.getElementById('todo-template').innerHTML,
+					handlebarsTemplate = Handlebars.compile(handlebarsTemplateSource);
 
 				//Create LI elements for each todo
 				app.model.todos.forEach(function(todo) {
-					var todolistLIelement = document.createElement('LI'),
-						todolistTextElement = document.createElement('P');
-
-					todolistLIelement.setAttribute('id', todo.id);
-					todolistLIelement.innerHTML = '<button class=\"togglecompletedbutton\">Toggle completed</button><button class=\"deletetodobutton\">Delete todo</button>';
-
+					//Create object to pass into Handlebars template
+					var templateContext = {uid: todo.id, todotext: todo.todoText};
 					if (todo.completed) {
-						todolistTextElement.textContent = '(x) ' + todo.todoText;	
+						templateContext.completed = '(x) ';
 					} else {
-						todolistTextElement.textContent = '( ) ' + todo.todoText;					
+						templateContext.completed = '( ) ';
 					}
-					//Add text element as child of li element, then append li to UL
-					todolistLIelement.insertBefore(todolistTextElement, todolistLIelement.firstChild);
-					todolistULelement.appendChild(todolistLIelement);
+
+					var	listItemHtml = handlebarsTemplate(templateContext);
+					todolistULelement.insertAdjacentHTML('beforeend', listItemHtml);
 				});
 			}
 		}

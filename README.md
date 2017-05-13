@@ -31,4 +31,7 @@ V0.07
   -Added delete todo and toggle completed buttons onto HTML li items.
 
 V0.08
-  -Delete todo and toggle completed buttons on li items now work:
+  -Delete todo and toggle completed buttons on li items now work.
+
+V0.09
+  -Implemented Handlebars.js to use templating for li item creation.
