@@ -128,13 +128,17 @@
 				todolistULelement.innerHTML = '';
 
 				app.model.todos.forEach(function(todo) {
-					var todolistLIelement = document.createElement('LI');
+					var todolistLIelement = document.createElement('LI'),
+						todolistTextElement = document.createElement('P');
+
+					todolistLIelement.innerHTML = '<button class=\"togglecompletedbutton\">Toggle completed</button><button class=\"deletetodobutton\">Delete todo</button>';
 
 					if (todo.completed) {
-						todolistLIelement.textContent = '(x) ' + todo.todoText;	
+						todolistTextElement.textContent = '(x) ' + todo.todoText;	
 					} else {
-						todolistLIelement.textContent = '( ) ' + todo.todoText;					
+						todolistTextElement.textContent = '( ) ' + todo.todoText;					
 					}
+					todolistLIelement.insertBefore(todolistTextElement, todolistLIelement.firstChild);
 					todolistULelement.appendChild(todolistLIelement);
 				});
 			}

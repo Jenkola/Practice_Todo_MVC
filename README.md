@@ -26,3 +26,6 @@ V0.05
   
 V0.06
   -Added control methods in JS, linked to fields/buttons in index.html, which trigger model and view methods.
+
+ V0.07
+  -Added delete todo and toggle completed buttons onto HTML li items.

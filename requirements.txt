@@ -61,6 +61,26 @@ Build control handler section in JS:
 		>>Calls to render (displaytodos) should be moved from the model methods to the control methods.
 	-DONE: The buttons in index.html should have onclick properties to utilise the control methods.
 
+V0.07
+Add delete todo and toggle completed buttons onto HTML li items:
+		>>The button should have a class "deletetodobutton".
+		>>The button should have a class "togglecompletedbutton".
+
+V0.08
+Delete todo and toggle completed buttons on li items should work:
+	-It should have a generateID helper function that generates a unique/random ID.
+	-It should give each li html element an 'id' when a todo is added.
+	-The todo object should also be given an 'id' property when created.
+	-The value of each ID property should be filled with the return of the generateID funciton.
+	-It should have a setUpEventListeners method in the controls section.
+		>>It should set up a listener for 'click' in the UL.
+		>>The callback should tell what button type was pressed by e.target's class.
+		>>The callback should call the correct control method (delete/toggle) based on the class.
+		>>The control methods for delete/toggle should accept an ID as an argument.
+		>>The callback should pass the id of the button's parent element (i.e. the li element) into the control method.
+	-There should be a helper method to find the index number of a todo in the todos array based on it's ID property value.
+		>>The control method should utilise the find index number helper method to get the index number to pass into the model method.
+
 
 TODO:
 	-Add Delete todo and Toggle Completed buttons to each todo li item in HTML.
