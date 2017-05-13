@@ -27,5 +27,8 @@ V0.05
 V0.06
   -Added control methods in JS, linked to fields/buttons in index.html, which trigger model and view methods.
 
- V0.07
+V0.07
   -Added delete todo and toggle completed buttons onto HTML li items.
+
+V0.08
+  -Delete todo and toggle completed buttons on li items now work:

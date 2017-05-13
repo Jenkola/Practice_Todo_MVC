@@ -2,6 +2,27 @@
 
 (function(root) {
 
+	/*** Helper functions ***/
+
+	//Generates unique ID to be attached to todo objects.
+	function generateID() {
+		var randomNum = Number(Math.round(Math.random() + 'e7'));
+		return 'uid' + randomNum;
+	}
+
+	//Finds the index number of a todo in the todos array based on it's ID property.
+	function findIndexFromID(idValue) {
+		var matchingIndex;
+
+		app.model.todos.forEach(function(element, index) {
+			if(element.id === idValue) {
+				matchingIndex = index;
+			}
+		});
+		return matchingIndex;
+	}
+
+	/*** Core app ***/
 	var app = {
 		//Model with core methods for manipulating todos array.
 		model: {
@@ -12,7 +33,8 @@
 
 				this.todos.push({
 					todoText: todoText,
-					completed: false
+					completed: false,
+					id: generateID()
 				});
 			},
 
@@ -66,7 +88,11 @@
 		},
 
 		control: {
-		//These methods are initiated using onclick properties in the HTML
+		//These methods are initiated using onclick properties in the HTML?
+
+			startUp: function() {
+				this.setUpEventListeners();
+			},
 
 			addTodo: function() {
 				var addTodoTextInput = document.getElementById('addtodotextinput');
@@ -89,10 +115,10 @@
 				app.view.displayTodos();
 			},
 
-			deleteTodo: function() {
-				var deleteTodoIndexNumber = document.getElementById('deletetodoindexnumber');
+			deleteTodo: function(idValue) {
+				var deleteTodoIndexNumber = findIndexFromID(idValue);
 
-				app.model.deleteTodo(deleteTodoIndexNumber.value);
+				app.model.deleteTodo(deleteTodoIndexNumber);
 
 				deleteTodoIndexNumber.value = '';
 				app.view.displayTodos();
@@ -104,10 +130,10 @@
 				app.view.displayTodos();
 			},
 
-			toggleCompleted: function() {
-				var toggleCompletedIndexNumber = document.getElementById('togglecompletedindexnumber');
+			toggleCompleted: function(idValue) {
+				var toggleCompletedIndexNumber = findIndexFromID(idValue);
 
-				app.model.toggleCompleted(toggleCompletedIndexNumber.value);
+				app.model.toggleCompleted(toggleCompletedIndexNumber);
 
 				toggleCompletedIndexNumber.value = '';
 				app.view.displayTodos();
@@ -117,6 +143,22 @@
 
 				app.model.toggleAll();
 				app.view.displayTodos();
+			},
+
+			setUpEventListeners: function() {
+				var todolistULelement = document.getElementById('todolist');
+
+				todolistULelement.addEventListener('click', function(e) {
+					var targetEl = e.target,
+						targetElClass = targetEl.getAttribute('class'),
+						targetElParentId = targetEl.parentNode.getAttribute('ID');
+					
+					if (targetElClass === 'togglecompletedbutton') {
+						app.control.toggleCompleted(targetElParentId);
+					} else if (targetElClass === 'deletetodobutton') {
+						app.control.deleteTodo(targetElParentId);
+					}
+				});
 			}
 		},
 
@@ -124,13 +166,16 @@
 		view: {
 
 			displayTodos: function() {
+				//Clear UL todolist section of HTML of all content
 				var todolistULelement = document.getElementById('todolist');
 				todolistULelement.innerHTML = '';
 
+				//Create LI elements for each todo
 				app.model.todos.forEach(function(todo) {
 					var todolistLIelement = document.createElement('LI'),
 						todolistTextElement = document.createElement('P');
 
+					todolistLIelement.setAttribute('id', todo.id);
 					todolistLIelement.innerHTML = '<button class=\"togglecompletedbutton\">Toggle completed</button><button class=\"deletetodobutton\">Delete todo</button>';
 
 					if (todo.completed) {
@@ -138,6 +183,7 @@
 					} else {
 						todolistTextElement.textContent = '( ) ' + todo.todoText;					
 					}
+					//Add text element as child of li element, then append li to UL
 					todolistLIelement.insertBefore(todolistTextElement, todolistLIelement.firstChild);
 					todolistULelement.appendChild(todolistLIelement);
 				});
@@ -145,6 +191,8 @@
 		}
 
 	};
+	//Run startup function to initialise event listeners etc.
+	app.control.startUp();
 
 	//provides access from global object for console use
 	root.todoApp = app;
