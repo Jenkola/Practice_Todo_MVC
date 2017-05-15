@@ -95,23 +95,25 @@
 			},
 
 			addTodo: function() {
-				var addTodoTextInput = document.getElementById('addtodotextinput');
-				
-				app.model.addTodo(addTodoTextInput.value);
 
-				addTodoTextInput.value = '';
+				var $addTodoTextInput = $('#addtodotextinput');
+
+				app.model.addTodo($addTodoTextInput.val());
+
+				$addTodoTextInput.val('');
 				app.view.displayTodos();
 			},
 
 			editTodoText: function() {
-				var editTodoIndexNumber = document.getElementById('edittodoindexnumber'),
-					editTodoTextInput = document.getElementById('edittodotextinput');
 
-				app.model.editTodoText(editTodoIndexNumber.value,
-					editTodoTextInput.value);
+				var $editTodoIndexNumber = $('#edittodoindexnumber'),
+					$editTodoTextInput = $('#edittodotextinput');
 
-				editTodoIndexNumber.value = '';
-				editTodoTextInput.value = '';
+				app.model.editTodoText($editTodoIndexNumber.val(),
+					$editTodoTextInput.val());
+
+				$editTodoIndexNumber.val('');
+				$editTodoTextInput.val('');
 				app.view.displayTodos();
 			},
 
@@ -146,18 +148,16 @@
 			},
 
 			setUpEventListeners: function() {
-				var todolistULelement = document.getElementById('todolist');
 
-				todolistULelement.addEventListener('click', function(e) {
-					var targetEl = e.target,
-						targetElClass = targetEl.getAttribute('class'),
-						targetElParentId = targetEl.parentNode.getAttribute('ID');
-					
-					if (targetElClass === 'togglecompletedbutton') {
-						app.control.toggleCompleted(targetElParentId);
-					} else if (targetElClass === 'deletetodobutton') {
-						app.control.deleteTodo(targetElParentId);
-					}
+				$('#todolist').on('click', function(e) {
+					var $targetElClass = $(e.target).attr('class'),
+						$targetElParentId = $(e.target).parent().attr('id');
+
+					if ($targetElClass === 'togglecompletedbutton') {
+						app.control.toggleCompleted($targetElParentId);
+					} else if ($targetElClass === 'deletetodobutton') {
+						app.control.deleteTodo($targetElParentId);
+					}	
 				});
 			}
 		},
@@ -167,11 +167,11 @@
 
 			displayTodos: function() {
 				//Clear UL todolist section of HTML of all content
-				var todolistULelement = document.getElementById('todolist');
-				todolistULelement.innerHTML = '';
-				//Create LI template for Handlebars
-				var handlebarsTemplateSource = document.getElementById('todo-template').innerHTML,
-					handlebarsTemplate = Handlebars.compile(handlebarsTemplateSource);
+				var $todoListULelement = $('#todolist');
+				$todoListULelement.html('');
+
+				//Create LI template for Handlebars.js
+				var $handlebarsTemplate = Handlebars.compile($('#todo-template').html());
 
 				//Create LI elements for each todo
 				app.model.todos.forEach(function(todo) {
@@ -183,8 +183,8 @@
 						templateContext.completed = '( ) ';
 					}
 
-					var	listItemHtml = handlebarsTemplate(templateContext);
-					todolistULelement.insertAdjacentHTML('beforeend', listItemHtml);
+					var	listItemHtml = $handlebarsTemplate(templateContext);
+					$todoListULelement.append(listItemHtml);
 				});
 			}
 		}

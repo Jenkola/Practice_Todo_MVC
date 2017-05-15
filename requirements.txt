@@ -88,14 +88,19 @@ Delete todo and toggle completed buttons on li items should work:
 V0.09
 Add handlebars.js. Adapt displayTodos function to utilise a handlebars template to create li items:
 	DONE:-Add handlebars.js to directory.
-	DONE:-Run handlebars.js in html file.
+	DONE:-Run handlebars.js in HTML file.
 	DONE:-Create handlebars template for li items in <script> in html file.
 	DONE:-Adapt displaytodos to compile handlebars object.
 	DONE:-Adapt displaytodos to supply handlebars object containing the id and text for the todo.
 
+V0.1
+Substitute in JQuery methods for DOM selection and manipulation.
+	DONE:-Add Jquery to directort.
+	DONE:-Run Jquery in HTML file.
+	DONE:-Replace all DOM selectors with JQuery selectors.
+	DONE:-Replace all DOM manipulation with JQuery methods.
+
 
 TODO:
-
-	-Implement JQuery for dom manipulation, change all DOM stuff in app to utilise JQuery.
 	-Make completed status a checkbox on each li item. Checkbox status to be bound to completed property of the todo in JS.
 	-Make edit todo workable for each list item i.e. Double click text to edit. Todo text is actually the value of an input text field.

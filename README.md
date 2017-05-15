@@ -35,3 +35,6 @@ V0.08
 
 V0.09
   -Implemented Handlebars.js to use templating for li item creation.
+
+V0.1
+  -Subsituted in jQuery for all dom selection and manipulation.
