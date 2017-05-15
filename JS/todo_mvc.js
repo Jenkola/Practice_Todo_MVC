@@ -1,4 +1,4 @@
-//JS file
+//todo mvc core JS file
 
 (function(root) {
 
@@ -88,14 +88,13 @@
 		},
 
 		control: {
-		//These methods are initiated using onclick properties in the HTML?
 
 			startUp: function() {
 				this.setUpEventListeners();
 			},
 
+			//initiated using onclick property on the HTML button.
 			addTodo: function() {
-
 				var $addTodoTextInput = $('#addtodotextinput');
 
 				app.model.addTodo($addTodoTextInput.val());
@@ -104,16 +103,13 @@
 				app.view.displayTodos();
 			},
 
-			editTodoText: function() {
+			editTodoText: function(idValue) {
+				var editTodoIndexNumber = findIndexFromID(idValue);
+				var cssSelector = 'li#' + idValue + ' input.todotextfield';
+				var	$editTodoTextInput = $(cssSelector);
 
-				var $editTodoIndexNumber = $('#edittodoindexnumber'),
-					$editTodoTextInput = $('#edittodotextinput');
-
-				app.model.editTodoText($editTodoIndexNumber.val(),
+				app.model.editTodoText(editTodoIndexNumber,
 					$editTodoTextInput.val());
-
-				$editTodoIndexNumber.val('');
-				$editTodoTextInput.val('');
 				app.view.displayTodos();
 			},
 
@@ -121,11 +117,10 @@
 				var deleteTodoIndexNumber = findIndexFromID(idValue);
 
 				app.model.deleteTodo(deleteTodoIndexNumber);
-
-				deleteTodoIndexNumber.value = '';
 				app.view.displayTodos();
 			},
 
+			//initiated using onclick property on the HTML button.
 			removeCompleted: function() {
 
 				app.model.removeCompleted();
@@ -136,11 +131,10 @@
 				var toggleCompletedIndexNumber = findIndexFromID(idValue);
 
 				app.model.toggleCompleted(toggleCompletedIndexNumber);
-
-				toggleCompletedIndexNumber.value = '';
 				app.view.displayTodos();
 			},
 
+			//initiated using onclick property on the HTML button.
 			toggleAll: function() {
 
 				app.model.toggleAll();
@@ -148,17 +142,27 @@
 			},
 
 			setUpEventListeners: function() {
-
+				//Listener for toggle completed and delete todo
 				$('#todolist').on('click', function(e) {
 					var $targetElClass = $(e.target).attr('class'),
 						$targetElParentId = $(e.target).parent().attr('id');
 
-					if ($targetElClass === 'togglecompletedbutton') {
+					if ($targetElClass === 'togglecompletedcheckbox') {
 						app.control.toggleCompleted($targetElParentId);
 					} else if ($targetElClass === 'deletetodobutton') {
 						app.control.deleteTodo($targetElParentId);
 					}	
 				});
+				//Listener for edit todo text
+				$('#todolist').on('focusout', function(e) {
+						var $targetElClass = $(e.target).attr('class'),
+						$targetElParentId = $(e.target).parent().attr('id');
+
+					if($targetElClass === "todotextfield") {
+						app.control.editTodoText($targetElParentId);
+					}
+				});
+
 			}
 		},
 
@@ -178,11 +182,8 @@
 					//Create object to pass into Handlebars template
 					var templateContext = {uid: todo.id, todotext: todo.todoText};
 					if (todo.completed) {
-						templateContext.completed = '(x) ';
-					} else {
-						templateContext.completed = '( ) ';
+						templateContext.completed = 'checked';
 					}
-
 					var	listItemHtml = $handlebarsTemplate(templateContext);
 					$todoListULelement.append(listItemHtml);
 				});

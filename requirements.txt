@@ -94,13 +94,37 @@ Add handlebars.js. Adapt displayTodos function to utilise a handlebars template 
 	DONE:-Adapt displaytodos to supply handlebars object containing the id and text for the todo.
 
 V0.1
-Substitute in JQuery methods for DOM selection and manipulation.
+Substitute in JQuery methods for DOM selection and manipulation:
 	DONE:-Add Jquery to directort.
 	DONE:-Run Jquery in HTML file.
 	DONE:-Replace all DOM selectors with JQuery selectors.
 	DONE:-Replace all DOM manipulation with JQuery methods.
 
+V0.11
+Make completed status a checkbox on each li item:
+	DONE:-Add checkbox to handlebars template in index.html
+	DONE:-Update displayTodos function to check checkbox if completed === true.
+	DONE:-Update setUpEventListeners to listen for a click in checkbox and trigger toggleCompleted.
+	DONE:-Remove Toggle Completed button from handlebars template.
+
+V0.12
+Display todo text in a text input field on each li item. User can edit todo text via this field:
+	DONE:-Add text input field to each li item on handlebars template.
+	DONE:-The todo text is displayed as the value of this text input field.
+	DONE:-Edit todo takes the value of the text field in the li item and finds the relevant index number.
+	DONE:-Remove edit todo controls from controls section of index.html.
+	DONE:-Edit todo is triggered when user blurs text field and takes the updated value of the field.
+	DONE:-Remove Edit todo button from template and associated event listeners.
+	
+
+V0.13
+Improve event listeners:
+	-Add todo also triggers if user presses enter key in add todo text field.
+	-If user presses escape key in add todo text field, field clears.
+	-Edit todo also triggers if user presses enter key in edit todo text field.
+	-If user presses escape key in edit todo text field, field reverts to pre-existing todo text.
+
 
 TODO:
-	-Make completed status a checkbox on each li item. Checkbox status to be bound to completed property of the todo in JS.
 	-Make edit todo workable for each list item i.e. Double click text to edit. Todo text is actually the value of an input text field.
+	-Utilise localStorage to store todos between sessions.
