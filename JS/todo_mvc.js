@@ -10,12 +10,13 @@
 		return 'uid' + randomNum;
 	}
 
-	//Finds the index number of a todo in the todos array based on it's ID property.
-	function findIndexFromID(idValue) {
-		var matchingIndex;
+	//Finds the index number of a todo in the todos array from the event's parent element's ID property.
+	function findIndexFromParentID(e) {
+		var matchingIndex,
+			$targetElParentId = $(e.target).parent().attr('id');
 
 		app.model.todos.forEach(function(element, index) {
-			if(element.id === idValue) {
+			if(element.id === $targetElParentId) {
 				matchingIndex = index;
 			}
 		});
@@ -38,14 +39,14 @@
 				});
 			},
 
-			editTodoText: function(index, updatedText) {
-
-				this.todos[index].todoText = updatedText;
-			},
-
 			deleteTodo: function(index) {
 
 				this.todos.splice(index, 1);
+			},			
+
+			editTodoText: function(index, updatedText) {
+
+				this.todos[index].todoText = updatedText;
 			},
 
 			removeCompleted: function() {
@@ -55,11 +56,6 @@
 						this.deleteTodo(i);
 					}
 				}
-			},
-
-			toggleCompleted: function(index) {
-
-				this.todos[index].completed = !this.todos[index].completed;
 			},
 
 			toggleAll: function() {
@@ -84,40 +80,74 @@
 						todo.completed = true;				
 					});
 				}
-			}	
+			},
+
+			toggleCompleted: function(index) {
+
+				this.todos[index].completed = !this.todos[index].completed;
+			}
 		},
 
 		control: {
-
-			startUp: function() {
-				this.setUpEventListeners();
-			},
-
 			//initiated using onclick property on the HTML button.
 			addTodo: function() {
 				var $addTodoTextInput = $('#addtodotextinput');
 
 				app.model.addTodo($addTodoTextInput.val());
-
 				$addTodoTextInput.val('');
 				app.view.displayTodos();
 			},
 
-			editTodoText: function(idValue) {
-				var editTodoIndexNumber = findIndexFromID(idValue);
-				var cssSelector = 'li#' + idValue + ' input.todotextfield';
-				var	$editTodoTextInput = $(cssSelector);
+			addTodoKeyEval: function(e) {
+				var pressedKey = e.which,
+					enter_key = 13,
+					escape_key = 27;
 
-				app.model.editTodoText(editTodoIndexNumber,
-					$editTodoTextInput.val());
-				app.view.displayTodos();
+				if(pressedKey === enter_key) {
+					this.addTodo();
+					
+				} else if (pressedKey === escape_key) {
+					$(e.target).val('').blur();	
+				}
 			},
 
-			deleteTodo: function(idValue) {
-				var deleteTodoIndexNumber = findIndexFromID(idValue);
+			editTodoText: function(e) {
+				var $targetEl = $(e.target);
+				
+					if ($targetEl.hasClass('todotextfield')) {
+						var editTodoIndexNumber = findIndexFromParentID(e),
+							$targetTextVal = $targetEl.val();
 
-				app.model.deleteTodo(deleteTodoIndexNumber);
-				app.view.displayTodos();
+						app.model.editTodoText(editTodoIndexNumber, $targetTextVal);
+						app.view.displayTodos();
+					}
+			},
+
+			editTodoKeyEval: function(e) {
+				var pressedKey = e.which,
+					enter_key = 13,
+					escape_key = 27;
+
+				if(pressedKey === enter_key) {
+					this.editTodoText(e);
+					$(e.target).blur();
+					
+				} else if (pressedKey === escape_key) {
+					var editTodoIndexNumber = findIndexFromParentID(e);
+
+					$(e.target).val(app.model.todos[editTodoIndexNumber].todoText).blur();	
+				}				
+
+			},
+
+			deleteTodo: function(e) {
+				
+				if ($(e.target).hasClass('deletetodobutton')) {
+					var deleteTodoIndexNumber = findIndexFromParentID(e);
+
+						app.model.deleteTodo(deleteTodoIndexNumber);
+						app.view.displayTodos();
+				}
 			},
 
 			//initiated using onclick property on the HTML button.
@@ -127,11 +157,18 @@
 				app.view.displayTodos();
 			},
 
-			toggleCompleted: function(idValue) {
-				var toggleCompletedIndexNumber = findIndexFromID(idValue);
+			startUp: function() {
+				this.setUpEventListeners();
+			},
 
-				app.model.toggleCompleted(toggleCompletedIndexNumber);
-				app.view.displayTodos();
+			setUpEventListeners: function() {
+				
+				$('#todolist').on('click', this.deleteTodo.bind(this))
+					.on('change', this.toggleCompleted.bind(this))
+					.on('focusout', this.editTodoText.bind(this))
+					.on('keyup', this.editTodoKeyEval.bind(this));
+
+				$('#addtodotextinput').on('keyup', this.addTodoKeyEval.bind(this));
 			},
 
 			//initiated using onclick property on the HTML button.
@@ -139,30 +176,16 @@
 
 				app.model.toggleAll();
 				app.view.displayTodos();
-			},
+			},						
 
-			setUpEventListeners: function() {
-				//Listener for toggle completed and delete todo
-				$('#todolist').on('click', function(e) {
-					var $targetElClass = $(e.target).attr('class'),
-						$targetElParentId = $(e.target).parent().attr('id');
+			toggleCompleted: function(e) {
+				
+				if ($(e.target).hasClass('togglecompletedcheckbox')) {
+					var toggleCompletedIndexNumber = findIndexFromParentID(e);
 
-					if ($targetElClass === 'togglecompletedcheckbox') {
-						app.control.toggleCompleted($targetElParentId);
-					} else if ($targetElClass === 'deletetodobutton') {
-						app.control.deleteTodo($targetElParentId);
-					}	
-				});
-				//Listener for edit todo text
-				$('#todolist').on('focusout', function(e) {
-						var $targetElClass = $(e.target).attr('class'),
-						$targetElParentId = $(e.target).parent().attr('id');
-
-					if($targetElClass === "todotextfield") {
-						app.control.editTodoText($targetElParentId);
-					}
-				});
-
+					app.model.toggleCompleted(toggleCompletedIndexNumber);
+					app.view.displayTodos();
+				}
 			}
 		},
 

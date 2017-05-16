@@ -119,12 +119,14 @@ Display todo text in a text input field on each li item. User can edit todo text
 
 V0.13
 Improve event listeners:
-	-Add todo also triggers if user presses enter key in add todo text field.
-	-If user presses escape key in add todo text field, field clears.
-	-Edit todo also triggers if user presses enter key in edit todo text field.
-	-If user presses escape key in edit todo text field, field reverts to pre-existing todo text.
+	DONE:-Add todo also triggers if user presses enter key in add todo text field.
+	DONE:-If user presses escape key in add todo text field, field clears and blur.
+	DONE:-Edit todo also triggers if user presses enter key in edit todo text field.
+	DONE:-If user presses escape key in edit todo text field, field reverts to pre-existing todo text.
 
 
 TODO:
-	-Make edit todo workable for each list item i.e. Double click text to edit. Todo text is actually the value of an input text field.
+	-Have an element in html that states how many todos there are and how many outstanding.
+		e.g. '3 of 5 todos outstanding'
+	-Have a render function (utilising handlebars.js) to render the above item.
 	-Utilise localStorage to store todos between sessions.

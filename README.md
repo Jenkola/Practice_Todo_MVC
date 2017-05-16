@@ -52,3 +52,6 @@ V0.11
 
 V0.12
   -Now displays todo text in a text input field on each li item. User can edit todo text via this field.
+
+V0.13
+  -Add todo and edit todo text fields now respond to Enter and Esc keyboard keys.
