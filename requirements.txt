@@ -139,5 +139,12 @@ Utilise localStorage to store todos between sessions:
 	DONE:-Get todos from localStorage on startup.
 	DONE:-Set todos into localStorage before render.
 
+V0.16
+Implement CSS styles
+	-Add css folder to project.
+	-Add bootstrap css file.
+	-Create todo_mvc.css.
+	-Link both CSS files to index.html.
+
 TODO:
 	-Implement CSS.
