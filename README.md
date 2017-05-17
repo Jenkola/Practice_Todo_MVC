@@ -58,3 +58,6 @@ V0.13
 
 V0.14
   -Addded todos/outstanding todos counter.
+
+V0.15
+  -App utilises localStorage to store todos between sessions.

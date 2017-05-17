@@ -133,6 +133,11 @@ Add todos/outstanding todos counter:
 		>>Total Number of todos
 	DONE-Update render function to compile handlebars template and implement into HTML.
 
+V0.15
+Utilise localStorage to store todos between sessions:
+	DONE:-Create utility function to set or get localStorage containing the todos array.
+	DONE:-Get todos from localStorage on startup.
+	DONE:-Set todos into localStorage before render.
+
 TODO:
-	-Utilise localStorage to store todos between sessions.
 	-Implement CSS.
