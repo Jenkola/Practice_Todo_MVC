@@ -37,5 +37,102 @@ Migrate display todos to HTML:
 		>>Remove console.log methods from displaytodos.
 
 V0.04
-	-It should have a function to delete all completed todos.
+Delete all completed function in model:
+	-DONE: It should have a function to delete all completed todos.
 		>>Loops through todos (from back to front?), if completed === true, call delete todo function on that index number.
+
+V0.05
+Controls in html:
+	-DONE: Create controls for model functions in index.html
+		>>addTodo: Text input, 'Add todo' button.
+		>>editTodoText: Number input for index, text input, 'Edit todo' button.
+		>>deleteTodo: Number input for index, 'Delete todo' button.
+		>>toggleCompleted: Number input for index, 'Toggle Completed' button.
+		>>toggleAll: 'Toggle all' button.
+		>>removeCompleted: 'Remove all completed todos' button.
+
+V0.06
+Build control handler section in JS:
+	-DONE: It should have methods in control object which:
+		>>Are triggered by the user clicking control buttons in index.html
+		>>Call model methods, utilising the value of relevant text/number fields
+		as arguments to the methods.
+		>>Clear the value of the text/number fields.
+		>>Calls to render (displaytodos) should be moved from the model methods to the control methods.
+	-DONE: The buttons in index.html should have onclick properties to utilise the control methods.
+
+V0.07
+Add delete todo and toggle completed buttons onto HTML li items:
+	-DONE: It should attach a delete todo button to each li item created.
+		>>The button should have a class "deletetodobutton".
+	-DONE: It should attach a toggle completed button to each li item created.
+		>>The button should have a class "togglecompletedbutton".
+
+V0.08
+Delete todo and toggle completed buttons on li items should work:
+	-DONE: It should have a generateID helper function that generates a unique/random ID.
+	-DONE: The todo object should also be given an 'id' property when created.
+	-DONE: The value of each ID property should be filled with the return of the generateID funciton.
+	-DONE: It should give each li html element an 'id' which is the same as the todo's id property when a todo is added.
+
+	-DONE: It should have a setUpEventListeners method in the controls section.
+		>>It should set up a listener for 'click' in the UL.
+		>>The callback should tell what button type was pressed by e.target's class.
+		>>The callback should call the correct control method (delete/toggle) based on the class.
+		>>The control methods for delete/toggle should accept an ID as an argument.
+		>>The callback should pass the id of the button's parent element (i.e. the li element) into the control method.
+	-DONE: There should be a helper method to find the index number of a todo in the todos array based on it's ID property value.
+		>>The control method should utilise the find index number helper method to get the index number to pass into the model method.
+	-DONE: Remove the old toggle completed and delete todo controls from the controls section of the HTML.
+
+V0.09
+Add handlebars.js. Adapt displayTodos function to utilise a handlebars template to create li items:
+	DONE:-Add handlebars.js to directory.
+	DONE:-Run handlebars.js in HTML file.
+	DONE:-Create handlebars template for li items in <script> in html file.
+	DONE:-Adapt displaytodos to compile handlebars object.
+	DONE:-Adapt displaytodos to supply handlebars object containing the id and text for the todo.
+
+V0.1
+Substitute in JQuery methods for DOM selection and manipulation:
+	DONE:-Add Jquery to directort.
+	DONE:-Run Jquery in HTML file.
+	DONE:-Replace all DOM selectors with JQuery selectors.
+	DONE:-Replace all DOM manipulation with JQuery methods.
+
+V0.11
+Make completed status a checkbox on each li item:
+	DONE:-Add checkbox to handlebars template in index.html
+	DONE:-Update displayTodos function to check checkbox if completed === true.
+	DONE:-Update setUpEventListeners to listen for a click in checkbox and trigger toggleCompleted.
+	DONE:-Remove Toggle Completed button from handlebars template.
+
+V0.12
+Display todo text in a text input field on each li item. User can edit todo text via this field:
+	DONE:-Add text input field to each li item on handlebars template.
+	DONE:-The todo text is displayed as the value of this text input field.
+	DONE:-Edit todo takes the value of the text field in the li item and finds the relevant index number.
+	DONE:-Remove edit todo controls from controls section of index.html.
+	DONE:-Edit todo is triggered when user blurs text field and takes the updated value of the field.
+	DONE:-Remove Edit todo button from template and associated event listeners.
+	
+
+V0.13
+Improve event listeners:
+	DONE:-Add todo also triggers if user presses enter key in add todo text field.
+	DONE:-If user presses escape key in add todo text field, field clears and blur.
+	DONE:-Edit todo also triggers if user presses enter key in edit todo text field.
+	DONE:-If user presses escape key in edit todo text field, field reverts to pre-existing todo text.
+
+V0.14
+Add todos/outstanding todos counter:
+	DONE:-Create HTML footer for counter to be within.
+	DONE:-Create HTML handlebars template for the counter.
+	DONE-Create method which returns handlebars template context object containing:
+		>>Number of non-completed todos
+		>>Total Number of todos
+	DONE-Update render function to compile handlebars template and implement into HTML.
+
+TODO:
+	-Utilise localStorage to store todos between sessions.
+	-Implement CSS.

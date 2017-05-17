@@ -17,8 +17,45 @@
 			</ul>
 		</section>
 
+		<section id="todostatus">
+				<!--Generated element for number of todos goes here-->
+		</section>
+
+		<section id="todolistcontrols">
+
+			<div>
+				<input id="addtodotextinput" type="text">
+				<button onclick="todoApp.control.addTodo()">Add todo</button>
+			</div>
+
+			<div>
+				<button onclick="todoApp.control.toggleAll()">Toggle all</button>
+				<button onclick="todoApp.control.removeCompleted()">Remove completed todos</button>
+			</div>
+
+		</section>
+
 	</body>
 
+	<!--Handlebars.js template for <li> items-->
+	<script id="todo-template" type="text/x-handlebars-template">
+		<li id="{{uid}}">
+			<input type="checkbox" class="togglecompletedcheckbox" {{completed}}>
+			<input type="text" class="todotextfield" value="{{todotext}}">
+			<button class="deletetodobutton">Delete todo</button>
+		</li>
+	</script>
+
+	<!--Handlebars.js template for todo status element-->
+	<script id="status-template" type="text/x-handlebars-template">
+		<p>
+			{{outstanding}} of {{todos}} todos outstanding
+		</p>
+	</script>
+
+
+	<script src="libs/jquery-3.2.1.js"></script>
+	<script src="libs/handlebars-v4.0.5.js"></script>
 	<script src="js/todo_mvc.js"></script>
 
 </html>
