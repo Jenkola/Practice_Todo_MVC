@@ -3,48 +3,56 @@
 <html>
 	<head>
 		<title>Todo list MVC</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="css/todo_mvc.css">
 	</head>
 
 	<body>
 
-		<header>
-			<h1>Todo list MVC</h1>
-		</header>
+		<div class="container">
+			<header>
+				<h1 class="text-center">Todo list MVC</h1>
+			</header>
+
+			<div class="form-horizontal" id="add-todo-section">
+				<div class="col-sm-10">
+					<input class="form-control input-lg" id="addtodotextinput" type="text" placeholder="Type your todo here...">
+				</div>
+				<div class="col-sm-2">
+					<button class="btn btn-primary btn-lg" onclick="todoApp.control.addTodo()">Add todo</button>
+				</div>	
+			</div>
 		
-		<section>
-			<ul id="todolist">
-				<!--Generated Todo <li> items go here-->
-			</ul>
-		</section>
+			<section class="row form-group">
+				<ul class="list-unstyled col-sm-12" id="todolist">
+					<!--Generated Todo <li> items go here-->
+				</ul>
+			</section>
 
-		<section id="todostatus">
-				<!--Generated element for number of todos goes here-->
-		</section>
+			<section class="col-sm-4" id="todostatus">
+					<!--Generated element for number of todos goes here-->
+			</section>
 
-		<section id="todolistcontrols">
+			<section class="col-sm-8" id="todolistcontrols">
+				<div>
+					<button class="btn btn-default" onclick="todoApp.control.toggleAll()">Toggle all</button>
+					<button class="btn btn-default" onclick="todoApp.control.removeCompleted()">Remove completed todos</button>
+				</div>
+			</section>
 
-			<div>
-				<input id="addtodotextinput" type="text">
-				<button onclick="todoApp.control.addTodo()">Add todo</button>
-			</div>
-
-			<div>
-				<button onclick="todoApp.control.toggleAll()">Toggle all</button>
-				<button onclick="todoApp.control.removeCompleted()">Remove completed todos</button>
-			</div>
-
-		</section>
-
+		</div>
 	</body>
 
 	<!--Handlebars.js template for <li> items-->
 	<script id="todo-template" type="text/x-handlebars-template">
-		<li id="{{uid}}">
-			<input type="checkbox" class="togglecompletedcheckbox" {{completed}}>
-			<input type="text" class="todotextfield" value="{{todotext}}">
-			<button class="deletetodobutton">Delete todo</button>
+		<li id="{{uid}}" class=" row">
+
+			<input type="checkbox" class="toggle col-xs-1" {{completed}}>
+			
+			<input type="text" class="todotextfield form-control" value="{{todotext}}">
+					
+			<button class="deletetodo close col-xs-1">&times;</button>
 		</li>
 	</script>
 

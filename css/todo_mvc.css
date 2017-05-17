@@ -1,0 +1,40 @@
+header {
+	margin: 40px 0px;
+}
+
+h1 {
+	color: #555555;
+}
+
+.container {
+	max-width: 850px;
+}
+
+#addtodotextinput {
+	margin-bottom: 10px;;
+}
+
+#todolist {
+	margin-top: 20px;
+}
+
+li {
+	margin-bottom: 10px;
+}
+
+.todotextfield {
+	display: inline-block;
+	width: 83%;
+}
+
+button.close {
+	display: inline-block;
+	padding-bottom: 5px;
+	font-size: 240%;
+}
+
+#todolistcontrols button {
+	float: right;
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
