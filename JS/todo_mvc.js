@@ -113,25 +113,18 @@
 			},
 
 			deleteTodo: function(e) {
-				
-				if ($(e.target).hasClass('deletetodobutton')) {
-					var deleteTodoIndexNumber = util.findIndexFromParentID(e);
+				var deleteTodoIndexNumber = util.findIndexFromParentID(e);
 
-						app.model.deleteTodo(deleteTodoIndexNumber);
-						app.view.render();
-				}
+					app.model.deleteTodo(deleteTodoIndexNumber);
+					app.view.render();
 			},			
 
 			editTodoText: function(e) {
-				var $targetEl = $(e.target);
-				
-					if ($targetEl.hasClass('todotextfield')) {
-						var editTodoIndexNumber = util.findIndexFromParentID(e),
-							$targetTextVal = $targetEl.val();
+				var editTodoIndexNumber = util.findIndexFromParentID(e),
+					$targetTextVal = $(e.target).val();
 
-						app.model.editTodoText(editTodoIndexNumber, $targetTextVal);
-						app.view.render();
-					}
+				app.model.editTodoText(editTodoIndexNumber, $targetTextVal);
+				app.view.render();
 			},
 
 			editTodoKeyEval: function(e) {
@@ -164,10 +157,10 @@
 
 			setUpEventListeners: function() {
 				
-				$('#todolist').on('click', this.deleteTodo.bind(this))
-					.on('change', this.toggleCompleted.bind(this))
-					.on('focusout', this.editTodoText.bind(this))
-					.on('keyup', this.editTodoKeyEval.bind(this));
+				$('#todolist').on('click', '.deletetodo', this.deleteTodo.bind(this))
+					.on('change', '.toggle', this.toggleCompleted.bind(this))
+					.on('focusout', '.todotextfield', this.editTodoText.bind(this))
+					.on('keyup', '.todotextfield', this.editTodoKeyEval.bind(this));
 
 				$('#addtodotextinput').on('keyup', this.addTodoKeyEval.bind(this));
 			},
@@ -179,14 +172,11 @@
 				app.view.render();
 			},						
 
-			toggleCompleted: function(e) {
-				
-				if ($(e.target).hasClass('togglecompletedcheckbox')) {
-					var toggleCompletedIndexNumber = util.findIndexFromParentID(e);
+			toggleCompleted: function(e) {			
+				var toggleCompletedIndexNumber = util.findIndexFromParentID(e);
 
-					app.model.toggleCompleted(toggleCompletedIndexNumber);
-					app.view.render();
-				}
+				app.model.toggleCompleted(toggleCompletedIndexNumber);
+				app.view.render();
 			}
 		},
 

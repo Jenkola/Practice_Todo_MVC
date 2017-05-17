@@ -61,3 +61,6 @@ V0.14
 
 V0.15
   -App utilises localStorage to store todos between sessions.
+
+V0.16
+  -Implemented CSS styles utilising bootstrap and own CSS file.
