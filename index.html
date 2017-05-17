@@ -17,6 +17,10 @@
 			</ul>
 		</section>
 
+		<section id="todostatus">
+				<!--Generated element for number of todos goes here-->
+		</section>
+
 		<section id="todolistcontrols">
 
 			<div>
@@ -41,6 +45,14 @@
 			<button class="deletetodobutton">Delete todo</button>
 		</li>
 	</script>
+
+	<!--Handlebars.js template for todo status element-->
+	<script id="status-template" type="text/x-handlebars-template">
+		<p>
+			{{outstanding}} of {{todos}} todos outstanding
+		</p>
+	</script>
+
 
 	<script src="libs/jquery-3.2.1.js"></script>
 	<script src="libs/handlebars-v4.0.5.js"></script>

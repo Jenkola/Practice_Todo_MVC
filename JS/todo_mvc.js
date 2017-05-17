@@ -4,13 +4,7 @@
 
 	/*** Helper functions ***/
 
-	//Generates unique ID to be attached to todo objects.
-	function generateID() {
-		var randomNum = Number(Math.round(Math.random() + 'e7'));
-		return 'uid' + randomNum;
-	}
-
-	//Finds the index number of a todo in the todos array from the event's parent element's ID property.
+	//Finds the index number of a todo in app.model.todos from the event's parent element's ID property.
 	function findIndexFromParentID(e) {
 		var matchingIndex,
 			$targetElParentId = $(e.target).parent().attr('id');
@@ -21,6 +15,26 @@
 			}
 		});
 		return matchingIndex;
+	}	
+
+	//Generates unique ID to be attached to todo objects.
+	function generateID() {
+		var randomNum = Number(Math.round(Math.random() + 'e7'));
+		return 'uid' + randomNum;
+	}
+
+	//Returns number of todos, and number with completed: true
+	function countTodos() {
+		var numberOfOutstandingTodos = 0;
+
+		app.model.todos.forEach(function(todo) {
+			if(!todo.completed) {
+				numberOfOutstandingTodos++;
+			}
+		});
+
+		return {todos: app.model.todos.length,
+				outstanding: numberOfOutstandingTodos};
 	}
 
 	/*** Core app ***/
@@ -31,7 +45,6 @@
 			todos: [],
 
 			addTodo: function(todoText) {
-
 				this.todos.push({
 					todoText: todoText,
 					completed: false,
@@ -40,17 +53,14 @@
 			},
 
 			deleteTodo: function(index) {
-
 				this.todos.splice(index, 1);
 			},			
 
 			editTodoText: function(index, updatedText) {
-
 				this.todos[index].todoText = updatedText;
 			},
 
 			removeCompleted: function() {
-				
 				for (var i = this.todos.length - 1; i >= 0; i--) {
 					if (this.todos[i].completed) {
 						this.deleteTodo(i);
@@ -59,18 +69,8 @@
 			},
 
 			toggleAll: function() {
-
-				//Find number of completed todos
-				var numberOfCompletedTodos = 0;
-
-				this.todos.forEach(function(todo) {
-					if(todo.completed) {
-						numberOfCompletedTodos++;
-					}
-				});
-
 				//If all todos are completed, make all completed === false.
-				if(numberOfCompletedTodos === this.todos.length) {
+				if(countTodos().outstanding === 0) {
 					this.todos.forEach(function(todo) {
 						todo.completed = false;				
 					});
@@ -83,7 +83,6 @@
 			},
 
 			toggleCompleted: function(index) {
-
 				this.todos[index].completed = !this.todos[index].completed;
 			}
 		},
@@ -95,7 +94,7 @@
 
 				app.model.addTodo($addTodoTextInput.val());
 				$addTodoTextInput.val('');
-				app.view.displayTodos();
+				app.view.render();
 			},
 
 			addTodoKeyEval: function(e) {
@@ -119,7 +118,7 @@
 							$targetTextVal = $targetEl.val();
 
 						app.model.editTodoText(editTodoIndexNumber, $targetTextVal);
-						app.view.displayTodos();
+						app.view.render();
 					}
 			},
 
@@ -131,10 +130,9 @@
 				if(pressedKey === enter_key) {
 					this.editTodoText(e);
 					$(e.target).blur();
-					
+				//Esc: Revert text field value back to pre-existing todo text
 				} else if (pressedKey === escape_key) {
 					var editTodoIndexNumber = findIndexFromParentID(e);
-
 					$(e.target).val(app.model.todos[editTodoIndexNumber].todoText).blur();	
 				}				
 
@@ -146,19 +144,19 @@
 					var deleteTodoIndexNumber = findIndexFromParentID(e);
 
 						app.model.deleteTodo(deleteTodoIndexNumber);
-						app.view.displayTodos();
+						app.view.render();
 				}
 			},
 
 			//initiated using onclick property on the HTML button.
 			removeCompleted: function() {
-
 				app.model.removeCompleted();
-				app.view.displayTodos();
+				app.view.render();
 			},
 
 			startUp: function() {
 				this.setUpEventListeners();
+				app.view.render();
 			},
 
 			setUpEventListeners: function() {
@@ -175,7 +173,7 @@
 			toggleAll: function() {
 
 				app.model.toggleAll();
-				app.view.displayTodos();
+				app.view.render();
 			},						
 
 			toggleCompleted: function(e) {
@@ -184,22 +182,28 @@
 					var toggleCompletedIndexNumber = findIndexFromParentID(e);
 
 					app.model.toggleCompleted(toggleCompletedIndexNumber);
-					app.view.displayTodos();
+					app.view.render();
 				}
 			}
 		},
 
 		//Methods for rendering todo list in index.html
 		view: {
+			//Utilises Handlebars.js
+			displayStatus: function() {
+				var $todoStatusEl = $('#todostatus'),
+					$handlebarsTemplate = Handlebars.compile($('#status-template').html()),
+					todoStatusHTML = $handlebarsTemplate(countTodos());
 
+				$todoStatusEl.html('');
+				$todoStatusEl.append(todoStatusHTML);
+			},
+			//Utilises Handlebars.js to compile LI templates based on data from each todo.
 			displayTodos: function() {
-				//Clear UL todolist section of HTML of all content
-				var $todoListULelement = $('#todolist');
+				var $todoListULelement = $('#todolist'),
+					$handlebarsTemplate = Handlebars.compile($('#todo-template').html());
+
 				$todoListULelement.html('');
-
-				//Create LI template for Handlebars.js
-				var $handlebarsTemplate = Handlebars.compile($('#todo-template').html());
-
 				//Create LI elements for each todo
 				app.model.todos.forEach(function(todo) {
 					//Create object to pass into Handlebars template
@@ -210,7 +214,12 @@
 					var	listItemHtml = $handlebarsTemplate(templateContext);
 					$todoListULelement.append(listItemHtml);
 				});
-			}
+			},
+
+			render: function() {
+				this.displayTodos();
+				this.displayStatus();
+			}			
 		}
 
 	};

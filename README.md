@@ -55,3 +55,6 @@ V0.12
 
 V0.13
   -Add todo and edit todo text fields now respond to Enter and Esc keyboard keys.
+
+V0.14
+  -Addded todos/outstanding todos counter.

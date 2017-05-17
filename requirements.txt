@@ -124,9 +124,15 @@ Improve event listeners:
 	DONE:-Edit todo also triggers if user presses enter key in edit todo text field.
 	DONE:-If user presses escape key in edit todo text field, field reverts to pre-existing todo text.
 
+V0.14
+Add todos/outstanding todos counter:
+	DONE:-Create HTML footer for counter to be within.
+	DONE:-Create HTML handlebars template for the counter.
+	DONE-Create method which returns handlebars template context object containing:
+		>>Number of non-completed todos
+		>>Total Number of todos
+	DONE-Update render function to compile handlebars template and implement into HTML.
 
 TODO:
-	-Have an element in html that states how many todos there are and how many outstanding.
-		e.g. '3 of 5 todos outstanding'
-	-Have a render function (utilising handlebars.js) to render the above item.
 	-Utilise localStorage to store todos between sessions.
+	-Implement CSS.
