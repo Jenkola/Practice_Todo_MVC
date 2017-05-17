@@ -47,11 +47,8 @@
 	<!--Handlebars.js template for <li> items-->
 	<script id="todo-template" type="text/x-handlebars-template">
 		<li id="{{uid}}" class=" row">
-
 			<input type="checkbox" class="toggle col-xs-1" {{completed}}>
-			
-			<input type="text" class="todotextfield form-control" value="{{todotext}}">
-					
+			<input type="text" class="todotextfield form-control" value="{{todotext}}">				
 			<button class="deletetodo close col-xs-1">&times;</button>
 		</li>
 	</script>
@@ -62,7 +59,6 @@
 			{{outstanding}} of {{todos}} todos outstanding
 		</p>
 	</script>
-
 
 	<script src="libs/jquery-3.2.1.js"></script>
 	<script src="libs/handlebars-v4.0.5.js"></script>

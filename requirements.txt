@@ -141,10 +141,10 @@ Utilise localStorage to store todos between sessions:
 
 V0.16
 Implement CSS styles
-	-Add css folder to project.
-	-Add bootstrap css file.
-	-Create todo_mvc.css.
-	-Link both CSS files to index.html.
+	-DONE:Add css folder to project.
+	-DONE:Add bootstrap css file.
+	-DONE:Create todo_mvc.css.
+	-DONE:Link both CSS files to index.html.
+	-DONE:Add classes to html to utilise bootstrap.
+	-DONE:Customise via toco_mvc.css.
 
-TODO:
-	-Implement CSS.
